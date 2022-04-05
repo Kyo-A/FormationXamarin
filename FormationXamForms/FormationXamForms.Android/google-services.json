@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "681796393221",
+    "project_id": "formationxam",
+    "storage_bucket": "formationxam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681796393221:android:5a27e2d39018bfe9c3ff6c",
+        "android_client_info": {
+          "package_name": "com.companyname.formationxamforms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681796393221-e9q0dsopb8v5789dvqm13jju6lrgueda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWGG49z66IriQimlfqNwBfgJKmQZBYcfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681796393221-e9q0dsopb8v5789dvqm13jju6lrgueda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

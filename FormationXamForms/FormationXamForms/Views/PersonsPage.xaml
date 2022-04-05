@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:FormationXamForms.Converters" 
+             xmlns:locator="clr-namespace:FormationXamForms.Locator"
+             xmlns:behaviors="clr-namespace:FormationXamForms.Behaviors"
+             x:Class="FormationXamForms.Views.PersonsPage"
+             x:Name="personPage"
+             BindingContext="{Binding Source={StaticResource Locator}, Path=Person}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullableIntConverter x:Key="NullableIntConverter"/>
+            <converters:SelectedItemEventArgsToSelectedItemConverter  x:Key="SelectedItemConverter"/>
+            <locator:ViewModelLocator x:Key="Locator"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Entry  Placeholder="Please enter id (for update/delete)" Text="{Binding IdProp, Mode=TwoWay, Converter={StaticResource NullableIntConverter}}"/>-->
+            <Entry  Placeholder="Please enter FirstName" Text="{Binding NomProp, Mode=TwoWay}"/>
+            <Entry  Placeholder="Please enter LastName" Text="{Binding PrenomProp, Mode=TwoWay}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="ADD"  Command="{Binding SaveCommand}"/>
+                <Button Text="UPDATE" Command="{Binding UpdateCommand}"/>
+                <!--<Button Text="SELECTION" Command="{Binding ShowItemCommand}"/>-->
+            </StackLayout>
+            <ListView x:Name="list"  ItemsSource="{Binding Persons}" RowHeight="55" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Nom}" LineBreakMode="TailTruncation"></Label>
+                                <Label Grid.Row="1" Grid.Column="0" Text="{Binding Prenom}" Font="Small"  TextColor="Gray" LineBreakMode="TailTruncation"></Label>
+                                <!--<Label Grid.Row="0" Grid.Column="2" Text="{Binding Id}" Font="Small"  TextColor="Gray" LineBreakMode="TailTruncation"></Label>-->
+                            </Grid>
+                            <ViewCell.ContextActions>
+                                <MenuItem Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Name=personPage}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding ShowItemCommand}" Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

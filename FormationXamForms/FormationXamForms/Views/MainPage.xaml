@@ -1,0 +1,15 @@
+﻿<FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:FormationXamForms.Views;assembly=FormationXamForms"
+            x:Class="FormationXamForms.Views.MainPage">
+    <FlyoutPage.Flyout>
+        <views:FlyoutMenuPage x:Name="flyout" />
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <views:HomePage/>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>

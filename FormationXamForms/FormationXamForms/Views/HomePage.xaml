@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormationXamForms.Views.HomePage"
+             Title="Home">
+    <ContentPage.Resources>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Secondary" Icon="home.png" Text="Logout" Clicked="Logout_Success" Priority="0"/>
+        <ToolbarItem Order="Secondary" Icon="home.png" Text="Settings" Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar TextChanged="SearchBar_TxtChanged"></SearchBar>
+            <ListView x:Name="contactsList"
+                      ItemSelected="Lst_ItemSelected"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Name}" Font="18"/>
+                                    <Label Text="{Binding Age}" TextColor="Gray"/>
+                                </StackLayout>
+                                <Image Source="https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554_960_720.png" 
+                                       HorizontalOptions="EndAndExpand"
+                                       HeightRequest="30" 
+                                       WidthRequest="50"/>
+                            </StackLayout>
+                        </ViewCell>-->
+
+                        <TextCell Text="{Binding FirstName}" Detail="{Binding Age}">
+                            <TextCell.ContextActions>
+                                <MenuItem Text="More" x:Name="More" Clicked="More_Clicked" CommandParameter="{Binding .}" ></MenuItem>
+                            </TextCell.ContextActions>
+                        </TextCell>
+
+                        <!--<ImageCell ImageSource="https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554_960_720.png" 
+                                   Text="{Binding Name}" 
+                                   Detail="{Binding Age}" />-->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

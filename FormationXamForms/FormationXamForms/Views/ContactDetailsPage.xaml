@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormationXamForms.Views.ContactDetailsPage">
+    <ContentPage.Content>
+        <TableView Intent="Form" Margin="16,0">
+            <TableRoot>
+                <TableSection Title="Nom">
+                    <EntryCell Label="Nom" Text="{Binding Path=ContactModel.FirstName}"/>
+                </TableSection>
+                <TableSection Title="Prenom">
+                    <EntryCell Label="Prenom" Text="{Binding Path=ContactModel.LastName}"/>
+                </TableSection>
+                <TableSection Title="Age">
+                    <EntryCell Label="Age" Text="{Binding Path=ContactModel.Age}"/>
+                </TableSection>
+                <TableSection>
+                    <ViewCell>
+                        <Button Text="Enregistrer" Command="{Binding SaveCommand}"/>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

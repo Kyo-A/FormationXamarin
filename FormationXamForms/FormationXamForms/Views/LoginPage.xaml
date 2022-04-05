@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
+             xmlns:converters="clr-namespace:FormationXamForms.Converters"
+             xmlns:locator="clr-namespace:FormationXamForms.Locator"
+             x:Class="FormationXamForms.Views.LoginPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UsernameCorrectConverter x:Key="UsernameCorrectConverter" />
+            <converters:UsernameCorrectToHideLabelConverter x:Key="UsernameCorrectToHideLabelConverter" />
+            <converters:PasswordCorrectConverter x:Key="PasswordCorrectConverter" />
+            <converters:PasswordCorrectToHideLabelConverter x:Key="PasswordCorrectToHideLabelConverter" />
+            <locator:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="30" Margin="10" BackgroundColor="#484559">
+            <Frame Padding="30" Margin="0,60,0,0" HasShadow="True" CornerRadius="25" BackgroundColor="White" VerticalOptions="Start">
+                <Grid BindingContext="{Binding Source={StaticResource Locator}, Path=Login}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Margin="0,0,0,10" Source="https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554_960_720.png" HeightRequest="40" WidthRequest="40" Aspect="AspectFill"></Image>
+                    <Label Grid.Row="1" Margin="0,0,0,20" Text="Login" HorizontalOptions="Center" FontSize="32" FontAttributes="Bold"/>
+                    <StackLayout Grid.Row="2">
+                        <!--  ERROR LABELS  -->
+                        <Label
+                            FontSize="Small"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="False"
+                            Text="Invalid email ..."
+                            TextColor="OrangeRed">  
+                            <Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference EntryUsername}, 
+                                            Path=Text, Converter={StaticResource UsernameCorrectToHideLabelConverter}}" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsVisible" Value="True" />
+                                </MultiTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label
+                            FontSize="Small"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="False"
+                            Text="Invalid password ..."
+                            TextColor="OrangeRed">
+                            <Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference EntryPassword}, Path=Text, Converter={StaticResource PasswordCorrectToHideLabelConverter}}" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsVisible" Value="True" />
+                                </MultiTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label Text="Enter A Username" HorizontalOptions="Center"/>
+                        <Entry Text="{Binding Username}" Placeholder="Username" Focused="UserNameEntry_Focused" Unfocused="UserNameEntry_Unfocused" PlaceholderColor="DarkGray" x:Name="EntryUsername"/>
+                        <Label Text="Enter A Password" HorizontalOptions="Center"/>
+                        <Entry Text="{Binding Password}" Placeholder="Password" Focused="PasswordEntry_Focused" Unfocused="PasswordEntry_Unfocused" PlaceholderColor="DarkGray" IsPassword="True" x:Name="EntryPassword"/>
+                    </StackLayout>
+                    <Button TextColor="White"
+                            BackgroundColor="#22A7F0" 
+                            Grid.Row="3" 
+                            Text="Login"
+                            IsEnabled="False"
+                            Command="{Binding OnLoadCommand}">
+                        <Button.Triggers>
+                            <MultiTrigger TargetType="Button">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference EntryUsername}, Path=Text, Converter={StaticResource UsernameCorrectConverter}}" Value="True" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference EntryPassword}, Path=Text, Converter={StaticResource PasswordCorrectConverter}}" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!--  ACTIVITYINDICATOR: IS RUNNING WHEN CLICK ON LOGIN BUTTON  -->
+                    <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsVisible}" 
+                Margin="0,0,0,0"
+                VerticalOptions="Center"
+                Color="#484559">
+                    </ActivityIndicator>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

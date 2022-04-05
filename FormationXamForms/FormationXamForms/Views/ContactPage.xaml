@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormationXamForms.Views.ContactPage"
+             xmlns:converters="clr-namespace:FormationXamForms.Converters" 
+             xmlns:locator="clr-namespace:FormationXamForms.Locator"
+             xmlns:behaviors="clr-namespace:FormationXamForms.Behaviors"
+             x:Name="contactPage"
+             BindingContext="{Binding Source={StaticResource Locator}, Path=Contact}"
+             Title="Liste Contact"
+             BackgroundColor="Beige">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullableIntConverter x:Key="NullableIntConverter"/>
+            <converters:SelectedItemEventArgsToSelectedItemConverter  x:Key="SelectedItemConverter"/>
+            <locator:ViewModelLocator x:Key="Locator"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ajouter" Command="{Binding AddContactCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding ContactList}" CachingStrategy="RecycleElement" RowHeight="100" SelectedItem="{Binding SelectedContact, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete" BackgroundColor="Red"  Command="{Binding Path=BindingContext.DeleteContactCommand, Source={x:Reference Name=contactPage}}" CommandParameter="{Binding .}" ></SwipeItem>
+                                        <SwipeItem Text="Add" BackgroundColor="Green"  Command="{Binding Path=BindingContext.AddContactCommand, Source={x:Reference Name=contactPage}}" ></SwipeItem>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout Margin="10" WidthRequest="300">
+                                    <Label Text="{Binding FirstName}" LineBreakMode="TailTruncation"></Label>
+                                    <Label Text="{Binding LastName}" Font="Small"  TextColor="Gray" LineBreakMode="TailTruncation"></Label>
+                                </StackLayout>
+                                <!-- Content -->
+                            </SwipeView>
+                        </ViewCell>
+                        <!--<ViewCell>
+                            
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding FirstName}" LineBreakMode="TailTruncation"></Label>
+                                <Label Grid.Row="1" Grid.Column="0" Text="{Binding LastName}" Font="Small"  TextColor="Gray" LineBreakMode="TailTruncation"></Label>
+                            </Grid>
+                            <ViewCell.ContextActions>
+                                <MenuItem Command="{Binding Path=BindingContext.DeleteContactCommand, Source={x:Reference Name=contactPage}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>-->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectContactCommand}" Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FormationXamForms.Models;assembly=FormationXamForms"
+             xmlns:views="clr-namespace:FormationXamForms.Views;assembly=FormationXamForms"
+             Title="Menu"
+             xmlns:i18n="clr-namespace:FormationXamForms.I18n"
+             x:Class="FormationXamForms.Views.FlyoutMenuPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BackgroundColor="WhiteSmoke" HorizontalOptions="Center" VerticalOptions="Center">
+                <Image Aspect="AspectFit" Source="home.png" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="70"></Image>
+
+                <Label Text="Menu"
+                       FontSize="26"
+               TextColor="Black"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center" />
+            </StackLayout>
+
+        <StackLayout>
+            <ListView x:Name="listView" x:FieldModifier="public">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type local:FlyoutItemPage}">
+                        <local:FlyoutItemPage Title="{i18n:Translate Hello}" IconSource="home.png" TargetPage="{x:Type views:HomePage}"/>
+                        <local:FlyoutItemPage Title="{i18n:Translate Task}" IconSource="home.png" TargetPage="{x:Type views:GridLayoutPage}"/>
+                        <local:FlyoutItemPage Title="Stack" IconSource="home.png" TargetPage="{x:Type views:StackLayoutPage}"/>
+                        <local:FlyoutItemPage Title="Calcul" IconSource="home.png" TargetPage="{x:Type views:CalculPage}"/>
+                        <local:FlyoutItemPage Title="Personnes" IconSource="home.png" TargetPage="{x:Type views:PersonsPage}"/>
+                        <local:FlyoutItemPage Title="Background" IconSource="home.png" TargetPage="{x:Type views:BackgroundTaskPage}"/>
+                        <local:FlyoutItemPage Title="Contact" IconSource="home.png" TargetPage="{x:Type views:ContactPage}"/>
+                        <local:FlyoutItemPage Title="Generic" IconSource="home.png" TargetPage="{x:Type views:Page}"/>
+
+                        </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="33"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding IconSource}"/>
+                                <Label Grid.Column="1" VerticalOptions="CenterAndExpand" Text="{Binding Title}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

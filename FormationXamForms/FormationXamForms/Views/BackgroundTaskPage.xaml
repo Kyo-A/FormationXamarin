@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:FormationXamForms.ViewModels"
+             BindingContext="{StaticResource BaskgroundTaskViewModel}"
+             x:Class="FormationXamForms.Views.BackgroundTaskPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <viewModels:BackgroundTaskViewModel x:Key="BaskgroundTaskViewModel"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Start" Command="{Binding StartCommand}"/>
+            <Label Text="{Binding StatusMessage}"/>
+            <Button Text="Stop" Command="{Binding StopCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
